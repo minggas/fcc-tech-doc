@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>FCC Documentation Page</title>
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>
+            <h1>React Documentation</h1>
+        </header>
+        <ul>
+            <li>
+                <a href="#Installing" class="nav-link">Installing</a>
+            </li>
+            <li>
+                <a href="#Components" class="nav-link">Components</a>
+            </li>
+            <li>
+                <a href="#State_vs_Props" class="nav-link">State vs Props</a>
+            </li>
+            <li>
+                <a href="#Life_Cycle_Methods_Of_A_Component" class="nav-link">Life Cycle Methods Of A Component</a>
+            </li>
+            <li>
+                <a href="#Hello_World" class="nav-link">Hello World</a>
+            </li>
+            <li>
+                <a href="#Reference" class="nav-link">Reference</a>
+            </li>
+        </ul>
+    </nav>
+    <main id="main-doc">
+        <section class="main-section" id="Installing">
+            <header>
+                <h2>Installing</h2>
+            </header>
+            <p>You could just embed the React library in your webpage like so:</p>
+            <code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/cjs/react.production.min.js"&gt;&lt;/script&gt;</code>
+            <p>Smart programmers want to take the more practical and productive way:
+                <a href="https://github.com/facebookincubator/create-react-app" target="_blank">Create React App</a>
+            </p>
+            <pre><code>
+npm install -g create-react-app
+create-react-app my-app
+    
+cd my-app
+npm start
+            </code></pre>
+            <p>This will set up your development environment so that you can use the latest JavaScript features, provide a nice
+                developer experience, and optimize your app for production.</p>
+            <p>
+                <code>npm start</code> will start up a development server which allows live reloading</p>
+            <p>After you finish your project and are ready to deploy your App to production, you can just use npm run build
+                to create an optimized build of your app in the buildfolder.</p>
+        </section>
+        <section class="main-section" id="Components">
+            <header>
+                <h2>Components</h2>
+            </header>
+            <p>Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.</p>
+            <p>Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return
+                React elements describing what should appear on the screen. You can inject value into props as given below
+                :
+            </p>
+            <pre><code>function Welcome(props) {
+    return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+const element = &lt;Welcome name="Faisal Arkan" /&gt;;
+ReactDOM.render(
+    element,
+    document.getElementById('root')
+);
+                </code></pre>
+            <p>
+                <code>name="Faisal Arkan"</code> will give value into
+                <code>{props.name}</code> from
+                <code>function Welcome(props)</code> and returning component that has given value by
+                <code>name="Faisal Arkan"</code>, After that react will render element into html.</p>
+            <h3>Other ways to declare components</h3>
+            <p>There are many ways to declare components when using React.js, but there are two kinds of components,
+                <strong>stateless</strong> components and
+                <strong>stateful</strong> components.</p>
+
+            <h3>Stateful</h3>
+            <h4>Class Type Components</h4>
+            <pre><code>
+    class Cat extends React.Component {
+        constructor(props) {
+            super(props);
+        
+            this.state = {
+                humor: 'happy'
+            }
+        }
+        render() {
+            return(
+                &lt;div&gt;
+                    &lt;h1&gt;{this.props.name}&lt;/h1&gt;
+                    &lt;p&gt;
+                    {this.props.color}
+                    &lt;/p&gt;
+                &lt;/div&gt;
+            );
+        }
+    }
+                    </code></pre>
+
+            <h3>Stateless Components</h3>
+            <h4>Functional Components (Arrow Function from ES6)</h4>
+            <pre><code>
+        const Cat = props => {
+            return (  
+                &lt;div&gt;
+                    &lt;h1&gt;{props.name}&lt;/h1&gt;
+                    &lt;p&gt;{props.color}&lt;/p&gt;
+                &lt;/div&gt;;
+            );
+        };
+                    </code></pre>
+
+            <h4>Implicit Return Components</h4>
+            <pre><code>
+        const Cat = props => 
+            &lt;div&gt;
+                &lt;h1&gt;{props.name}&lt;/h1&gt;
+                &lt;p&gt;{props.color}&lt;/p&gt;
+            &lt;/div&gt;;
+                </code></pre>
+
+        </section>
+        <section class="main-section" id="State_vs_Props">
+            <header>
+                <h2>State vs Props</h2>
+            </header>
+            <p>When we start working with React components, we frequently hear two terms. They are state and props. So, in this
+                article we will explore what are those and how they differ.</p>
+            <h3>State:</h3>
+            <ul>
+                <li>State is something that a component owns. It belongs to that particular component where it is defined. For
+                    example, A person's age is a state of that person.</li>
+                <li>State is mutable. But it can be changed by only by that component that owns it. As I only can change my age,
+                    not anyone else.</li>
+                <li>You can change a state by using this.setState()</li>
+            </ul>
+            <p>See the below example to get an idea of state:</p>
+            <h4>Person.js</h4>
+            <pre><code>import React from 'react';
+
+    class Person extends React.Component{
+        constructor(props) {
+        super(props);
+        this.state = {
+            age:0
+        this.incrementAge = this.incrementAge.bind(this)
+        }
+    
+        incrementAge(){
+            this.setState({
+                age:this.state.age + 1;
+            });
+        }
+    
+        render(){
+            return(
+                &lt;div&gt;
+                &lt;label&gt;My age is: {this.state.age}&lt;/label&gt;
+                &lt;button onClick={this.incrementAge}&gt;Grow me older !!&lt;button&gt;
+                &lt;/div&gt;
+            );
+        }
+    }
+    
+    export default Person;</code></pre>
+            <p>In the above example,
+                <code>age</code> is the state of
+                <code>Person</code> component</p>
+            <h3>Props:</h3>
+            <ul>
+                <li>Props are similar to method arguments. They are passed to a component where that component is used.</li>
+                <li>Props is immutable. They are read-only.</li>
+            </ul>
+            <p>See the below example to get an idea of Props:</p>
+            <h4>Person.js</h4>
+            <pre><code>
+    import React from 'react';
+
+    class Person extends React.Component{
+        render(){
+        return(
+            &lt;div&gt;
+            &lt;label&gt;I am a {this.props.character} person.&lt;/label&gt;
+            &lt;/div&gt;
+        );
+        }
+    }
+    
+    export default Person;
+    
+    const person = &lt;Person character = "good"&gt;&lt;/Person&gt;
+            </code></pre>
+            <p>In the above example,
+                <code>const person = &lt;Person character = "good"&gt;&lt;/Person&gt;</code> we are passing
+                <code>character = "good"</code> prop to
+                <code>Person</code> component.</p>
+            <p>It gives output as "I am a good person".</p>
+        </section>
+        <section class="main-section" id="Life_Cycle_Methods_Of_A_Component">
+            <header>
+                <h2>Life Cycle Methods Of A Component</h2>
+            </header>
+            <p>When we start working with components, we need to perform several actions to update state or to perform some
+                actions when something changes in that component. In this scenario, life-cycle methods of a component comes
+                handy !! So let us dive into them in this article.</p>
+            <p>Broadly, we can divide the life cycle methods into 3 categories.</p>
+            <ol>
+                <li>Mounting</li>
+                <li>Updating</li>
+                <li>Unmounting</li>
+            </ol>
+            <p>As life cycle methods are self explanatory, I'm just going to mention the method names. Please feel free to contribute
+                to this article, if necessary.</p>
+            <h4>Mounting:</h4>
+            <ul>
+                <li>
+                    <code>constructor()</code>
+                </li>
+                <li>
+                    <code>componentWillMount()</code>
+                </li>
+                <li>
+                    <code>render()</code>
+                </li>
+                <li>
+                    <code>componentDidMount()</code>
+                </li>
+            </ul>
+            <h4>Updating:</h4>
+            <ul>
+                <li>
+                    <code>componentWillRecieveProps()</code>
+                </li>
+                <li>
+                    <code>shouldComponentUpdate()</code>
+                </li>
+                <li>
+                    <code>componentWillUpdate()</code>
+                </li>
+                <li>
+                    <code>render()</code>
+                </li>
+                <li>
+                    <code>componentDidUpdate()</code>
+                </li>
+            </ul>
+            <h4>Unmounting:</h4>
+            <ul>
+                <li>
+                    <code>componentWillUnmount()</code>
+                </li>
+            </ul>
+            <h4>Some interesting facts to notice:</h4>
+            <ul>
+                <li>
+                    <code>constructor</code>,
+                    <code>componentWillMount</code>,
+                    <code>componentDidMount</code> and
+                    <code>componentWillUnmount</code> will be called only once during the lifecycle of a component.</li>
+                <li>
+                    <code>componentWillUpdate</code>, and
+                    <code>componentDidUpdate</code> will only be executed if and only if
+                    <code>shouldComponentUpdate</code> returns true.</li>
+                <li>
+                    <code>componentWillUnmount()</code> will be called just before unmounting any component and hence can be used
+                    to free up the used memory, close any connections to DB, etc.</li>
+            </ul>
+            <p>Note:</p>
+            <blockquote>"Deprecation warnings will be enabled with a future 16.x release, but the legacy lifecycles will continue to
+                work until version 17."</blockquote>
+            <blockquote>Even in version 17, it will still be possible to use them, but they will be aliased with an “UNSAFE_” prefix
+                to indicate that they might cause issues. We have also prepared an automated script to rename them in existing
+                code."</blockquote>
+            <p>In other words, these previouse lifecycles methods will still be available as:</p>
+            <ul>
+                <li>UNSAFE_componentWillMount</li>
+                <li>UNSAFE_componentWillReceiveProps</li>
+                <li>UNSAFE_componentWillUpdate</li>
+            </ul>
+            <h4>New Lifecycle Methods</h4>
+            <p>New lifecycle methods will be introduced in React 17</p>
+            <ul>
+                <li>
+                    <code>getDerivedStateFromProps</code> will be a safer alternative to
+                    <code>componentWillReceiveProps</code>.</li>
+                <li>
+                    <code>getSnapshotBeforeUpdate</code> will be added to support safely reading properties from the DOM updates
+                    are made</li>
+            </ul>
+        </section>
+        <section class="main-section" id="Hello_World">
+            <header>
+                <h2>Hello World</h2>
+            </header>
+            <p>Every language learning starts with Traditional Hello World example. Here, you get introduced to React with the
+                same HelloWorld program.</p>
+            <p>Everything in React is a component. So firstly, you need to create HelloWorld component.</p>
+            <h4>HelloWorld.js</h4>
+            <pre><code>
+    import React from 'react';
+
+    class HelloWorld extends React.Component{
+        constructor(props) {
+        super(props);
+        }
+    
+        render(){
+            return(
+                &lt;div&gt;
+                    &lt;p&gt;Hello World !!&lt;/p&gt;
+                &lt;/div&gt;
+            );
+        }
+    }
+    
+    export default HelloWorld;                
+            </code></pre>
+            <p>You need to have index.html which has a div with <code>id=”helloWorld”</code> where our <code>HelloWorld</code> component gets rendered.</p>
+            <h4>index.html</h4>
+            <pre><code>
+    &lt;!doctype html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title>Hello World !!&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;div id="helloWorld"&gt;&lt;/div&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;
+            </code></pre>
+            <p>Then, you need to create index.js that act as link between HelloWorld.js and index.html, which tells exactly where we need to render the component.</p>
+            <h4>index.js</h4>
+            <pre><code>
+    import ReactDOM from 'react-dom';
+    import HelloWorld from './HelloWorld';
+    
+    ReactDOM.render(&lt;HelloWorld /&gt;, document.getElementById('helloWorld'));
+            </code></pre>
+            <p>Congrats !! You have created your first React component.</p>
+        </section>
+        <section class="main-section" id="Reference">
+            <header>
+                <h2>Reference</h2>
+            </header>
+                <ul>
+                    <li>All the documentation in this page is taken from
+                        <a href="https://github.com/freeCodeCamp/guide/tree/master/src/pages/react" target="_blank">FCC Guides</a>
+                    </li>
+                </ul>
+            
+        </section>
+    </main>
+</body>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+</html>
